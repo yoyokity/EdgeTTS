@@ -7,6 +7,9 @@ public sealed partial class EdgeTTSEngine
 {
     private IWebProxy? proxy;
 
+    /// <summary>合成超时时间</summary>
+    public TimeSpan SynthesisTimeout { get; set; } = TimeSpan.FromSeconds(10);
+
     /// <summary>语音合成使用的代理，null 走系统默认</summary>
     public IWebProxy? Proxy
     {
