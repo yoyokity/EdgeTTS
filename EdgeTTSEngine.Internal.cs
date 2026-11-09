@@ -53,6 +53,7 @@ public sealed partial class EdgeTTSEngine
             if (File.Exists(cacheFile))
             {
                 Log("使用缓存的语音文件");
+                TouchCacheFile(cacheFile);
                 return cacheFile;
             }
 
@@ -88,6 +89,22 @@ public sealed partial class EdgeTTSEngine
         finally
         {
             cacheLock.Release();
+        }
+    }
+
+    /// <summary>刷新缓存使用时间</summary>
+    private void TouchCacheFile
+    (
+        string cacheFile
+    )
+    {
+        try
+        {
+            File.SetLastWriteTimeUtc(cacheFile, DateTime.UtcNow);
+        }
+        catch (Exception ex)
+        {
+            Log($"刷新缓存时间失败: {ex.Message}");
         }
     }
 
